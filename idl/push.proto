@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package push;
+
+option go_package = "/pushcore";
+
+service PushService {
+  rpc SendGameEvent(GameEvent) returns (PushAck);
+  rpc BroadcastGlobalEvent(GlobalEvent) returns (PushAck);
+}
+
+message GameEvent {
+  string room_id = 1;
+  string user_id = 2;
+  string payload = 3;
+}
+
+message GlobalEvent {
+  string payload = 1;
+}
+
+message PushAck {
+  bool success = 1;
+  string message = 2;
+}
